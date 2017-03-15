@@ -31,20 +31,18 @@ namespace Hellofrom.Controllers
                     break;
                 case 3:
                     // I have a bug where the page throws 500
-                    throw new Exception("Cointoss = " + cointoss);
+                    //throw new Exception("Cointoss = " + cointoss);
                     break;
                 case 4:
                     // I have a bug where the page throws 500
-                    throw new Exception("Cointoss = 1" + cointoss);
+                    //throw new Exception("Cointoss = 1" + cointoss);
                     break;
 
                 default:
                     //if the value is >= 5 then tere is no bug :)
                     break;
             }
-
-
-
+            
             return View();
         }
     }
