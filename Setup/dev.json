@@ -1,0 +1,58 @@
+{
+    "parameters": {
+        "App": {
+            "type": "string"
+        },
+        "AppServicePlan": {
+            "type": "string"
+        }
+    },
+    "resources": [
+        //App Service Plan
+        {
+            "apiVersion": "2016-09-01",
+            "name": "[parameters('AppServicePlan')]",
+            "type": "Microsoft.Web/serverfarms",
+            "location": "West US",
+            "properties": {
+                "name": "[parameters('AppServicePlan')]",
+                "workerSizeId": "0",
+                "reserved": false,
+                "numberOfWorkers": "1"
+                
+            },
+            "sku": {
+                "Tier": "Standard",
+                "Name": "S1"
+            }
+        },
+        //Web App
+        {
+            "apiVersion": "2016-03-01",
+            "name": "[parameters('App')]",
+            "type": "Microsoft.Web/sites",
+            "location": "West US",
+            "tags": { },
+            "dependsOn": ["[concat('Microsoft.Web/serverfarms/', parameters('AppServicePlan'))]"],
+            "properties": {
+                "name": "[parameters('App')]",
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('AppServicePlan'))]"
+            },
+            "resources": [
+                {
+                    "apiVersion": "2016-03-01",
+                    "name": "web",
+                    "type": "sourcecontrols",
+                    "dependsOn": ["[resourceId('Microsoft.Web/Sites', parameters('app'))]"],
+                    "properties": {
+                        "RepoUrl": "https://github.com/btardif/agile",
+                        "branch": "dev",
+                        "IsManualIntegration": true
+                    }
+                }
+            ]
+        }
+    ],
+    "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0"
+}
