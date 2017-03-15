@@ -1,6 +1,6 @@
 ﻿####log-in and subscription selection####
 
-$account = "your account here"
+$account = "byvinyal"
 
 Add-AzureRmAccount
 $sub = Get-AzureRmSubscription -SubscriptionName $account
@@ -15,17 +15,17 @@ if (!(Test-Path dev.json))
 else 
 {
     #Environment
-    $Env = "Dev"
+    $Env = "dev"
     $location = "West Us"
 
-	#Resource Group Properties
-	$RG_Name = "BK-AgileDemo-" + $Env
+	#Resource Group
+	$RG_Name = "bk-agiledemo-rg-" + $Env
 
 	#App Service Plan
-	$ASP_Name = "BK-AgileDemo-ASP-" + $Env 
+	$ASP_Name = "bk-agiledemo-asp-" + $Env 
 
 	#Web App
-	$App_Name = "BK-AgileDemo-ASP-" +  $Env
+	$App_Name = "bk-agiledemo-" +  $Env
 	
     ############################################################################
 	#                                                                          #
@@ -45,7 +45,8 @@ else
 	Write-Host "Provisioning " + $env  + "Dev Environment" -ForegroundColor Green 
 	try 
 	{ 
-        New-AzureRmResourceGroupDeployment -ResourceGroupName $RG_Name  `
+        New-AzureRmResourceGroup -Name $RG_Name -Location $location
+        New-AzureRmResourceGroupDeployment  -ResourceGroupName $RG_Name `
             -TemplateFile .\dev.json `
             -App $App_Name `
             -AppServicePlan $ASP_Name
