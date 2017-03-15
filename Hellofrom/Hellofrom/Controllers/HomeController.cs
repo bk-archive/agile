@@ -19,7 +19,7 @@ namespace Hellofrom.Controllers
             {
                 case 0:
                     // I have a bug where the page is slow....
-                    Thread.Sleep(2000);
+                    Thread.Sleep(1000);
                     break;
                 case 1:
                     // I have a bug where the page is slow....
@@ -27,7 +27,7 @@ namespace Hellofrom.Controllers
                     break;
                 case 2:
                     // I have a bug where the page is slow....
-                    Thread.Sleep(2000);
+                    Thread.Sleep(3000);
                     break;
                 case 3:
                     // I have a bug where the page throws 500
